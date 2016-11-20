@@ -6,6 +6,6 @@ class Request < ActiveRecord::Base
   validates :type,        :presence => true
 
   belongs_to(:user)
-  belogns_to(:allotment)
+  belongs_to(:allotment)
 
 end
