@@ -1,0 +1,64 @@
+<!-- Validation failure messages -->
+<% if @allotment.errors.any? %>
+  <% @allotment.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Allotment #<%= @allotment.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_allotment/<%= @allotment.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for date -->
+      <div class="form-group">
+        <label for="date" class="control-label">
+          Date
+        </label>
+
+        <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="<%= @allotment.date %>">
+      </div>
+
+      <!-- Label and input for days_available -->
+      <div class="form-group">
+        <label for="days_available" class="control-label">
+          Days available
+        </label>
+
+        <input type="text" id="days_available" name="days_available" placeholder="Days available" class="form-control" value="<%= @allotment.days_available %>">
+      </div>
+
+      <!-- Label and input for role_id -->
+      <div class="form-group">
+        <label for="role_id" class="control-label">
+          Role
+        </label>
+
+        <input type="text" id="role_id" name="role_id" placeholder="Role" class="form-control" value="<%= @allotment.role_id %>">
+      </div>
+
+      <!-- Label and input for department_id -->
+      <div class="form-group">
+        <label for="department_id" class="control-label">
+          Department
+        </label>
+
+        <input type="text" id="department_id" name="department_id" placeholder="Department" class="form-control" value="<%= @allotment.department_id %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Allotment
+      </button>
+      or
+      <a href="/allotments/<%= @allotment.id %>">Cancel</a>
+    </form>
+  </div>
+</div>
