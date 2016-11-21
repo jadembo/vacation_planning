@@ -1,34 +1,29 @@
-<div class="page-header">
-  <h3>Request #<%= @request.id %></h3>
+<div class = "page-header">
+  <h3> My Requests </h3>
 </div>
 
 <div class="row">
-  <div class="col-md-12 mb-2">
-    <dl class="dl-horizontal">
-      <dt>User</dt>
-      <dd><%= @request.user_id %></dd>
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>User</th>
+        <th>Allotment</th>
+        <th>Length</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
 
-      <dt>Allotment</dt>
-      <dd><%= @request.allotment_id %></dd>
-
-      <dt>Length</dt>
-      <dd><%= @request.length %></dd>
-
-      <dt>Type</dt>
-      <dd><%= @request.type %></dd>
-
-    </dl>
-
-    <div class="btn-group btn-group-justified">
-      <a href="/requests" class="btn btn-primary">
-        Back
-      </a>
-      <a href="/requests/<%= @request.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_request/<%= @request.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
-    </div>
+      <% @requests.each do |request| %>
+      <tr>
+        <td><%= request.user_id %></td>
+        <td><%= request.allotment_id %></td>
+        <td><%= request.length %></td>
+        <td><%= request.request_type %></td>
+        <td>
+          <a href="/delete_request/<%= request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
   </div>
 </div>

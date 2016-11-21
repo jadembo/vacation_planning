@@ -6,7 +6,7 @@ class RequestsController < ApplicationController
   end
 
   def show
-    @request = Request.find(params[:id])
+    @requests = Request.where(:user_id => current_user.id)
 
     render("requests/show.html.erb")
   end
@@ -23,12 +23,12 @@ class RequestsController < ApplicationController
     @request.user_id = params[:user_id]
     @request.allotment_id = params[:allotment_id]
     @request.length = params[:length]
-    @request.type = params[:type]
+    @request.request_type = params[:request_type]
 
     save_status = @request.save
 
     if save_status == true
-      redirect_to("/requests/#{@request.id}", :notice => "Request created successfully.")
+      redirect_to("/my_requests", :notice => "Request created successfully.")
     else
       render("requests/new.html.erb")
     end
@@ -46,7 +46,7 @@ class RequestsController < ApplicationController
     @request.user_id = params[:user_id]
     @request.allotment_id = params[:allotment_id]
     @request.length = params[:length]
-    @request.type = params[:type]
+    @request.request_type = params[:request_type]
 
     save_status = @request.save
 

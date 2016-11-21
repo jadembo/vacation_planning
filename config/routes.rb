@@ -59,7 +59,7 @@ root "requests#index"
 
   # READ
   get "/requests", :controller => "requests", :action => "index"
-  get "/requests/:id", :controller => "requests", :action => "show"
+  get "/my_requests", :controller => "requests", :action => "show"
 
   # UPDATE
   get "/requests/:id/edit", :controller => "requests", :action => "edit"
