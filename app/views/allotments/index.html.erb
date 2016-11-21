@@ -20,8 +20,8 @@
       <tr>
         <td><%= allotment.date %></td>
         <td><%= allotment.days_available %></td>
-        <td><%= allotment.role_id %></td>
-        <td><%= allotment.department_id %></td>
+        <td><%= allotment.role.role_name %></td>
+        <td><%= allotment.department.department_name%></td>
         <td>
           <a href="/allotments/<%= allotment.id %>" class="btn btn-primary">Show</a>
           <a href="/allotments/<%= allotment.id %>/edit" class="btn btn-warning">Edit</a>

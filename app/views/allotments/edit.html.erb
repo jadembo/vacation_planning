@@ -42,7 +42,7 @@
           Role
         </label>
 
-        <input type="text" id="role_id" name="role_id" placeholder="Role" class="form-control" value="<%= @allotment.role_id %>">
+        <%= select_tag(:role_id, options_from_collection_for_select(Role.all, :id, :role_name, @allotment.role_id), :class => "form-control")%>
       </div>
 
       <!-- Label and input for department_id -->
@@ -51,7 +51,7 @@
           Department
         </label>
 
-        <input type="text" id="department_id" name="department_id" placeholder="Department" class="form-control" value="<%= @allotment.department_id %>">
+        <%= select_tag(:department_id, options_from_collection_for_select(Department.all, :id, :department_name, @allotment.department_id), :class => "form-control")%>
       </div>
 
       <button class="btn btn-warning">
