@@ -21,7 +21,7 @@ class RolesController < ApplicationController
     @role = Role.new
 
     @role.role_name = params[:role_name]
-    @role.string = params[:string]
+
 
     save_status = @role.save
 
@@ -42,7 +42,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
 
     @role.role_name = params[:role_name]
-    @role.string = params[:string]
+  
 
     save_status = @role.save
 
