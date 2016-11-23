@@ -43,7 +43,9 @@ class RequestsController < ApplicationController
     @request.request_type = "vacation"
     save_status = @request.save
 
-    redirect_to("/my_requests", :notice => "Request created successfully.")
+    if save_status == true
+      redirect_to("/schedule_vacation", :notice => "Request updated successfully.")
+    end
   end
 
   def add_personal_day
@@ -55,7 +57,9 @@ class RequestsController < ApplicationController
     @request.request_type = "personal day"
     save_status = @request.save
 
-    redirect_to("/my_requests", :notice => "Request created successfully.")
+    if save_status == true
+      redirect_to("/schedule_vacation", :notice => "Request updated successfully.")
+    end
   end
 
   def edit
