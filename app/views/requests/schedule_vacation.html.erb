@@ -33,12 +33,12 @@
         <td><%= days_available_display %></td>
 
         <%if day_already_taken == "vacation"%>
-          <td colspan ="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> </a> Give Back Vacation Day </td>
+          <td colspan ="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> Give Back Vacation Day </a> </td>
           <td colspan = "3"> </td>
 
         <%elsif day_already_taken == "personal day"%>
           <td colspan ="3"> </td>
-          <td colspan="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> </a> Give Back Personal Day </td>
+          <td colspan="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> Give Back Personal Day </a></td>
 
         <%elsif days_available >= 1.0%>
 
@@ -50,7 +50,7 @@
           <td><a href ="/add_personal_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> Full Day </a> </td>
           <td><a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> AM Half Day </a></td>
           <td><a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> PM Half Day </a></td>
-          
+
 
           <%elsif days_available >= 0.5%>
 

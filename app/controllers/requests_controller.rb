@@ -110,4 +110,16 @@ class RequestsController < ApplicationController
     render("requests/schedule_vacation.html.erb")
   end
 
+
+  def fix
+    @requests = Request.all
+
+    @requests.each do |request|
+      request.request_type = "vacation"
+      request.length = "full day"
+      request.save
+    end
+
+    redirect_to("/schedule_vacation")
+  end
 end
