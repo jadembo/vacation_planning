@@ -42,7 +42,11 @@
           Length
         </label>
 
-        <input type="text" id="length" name="length" placeholder="Length" class="form-control" value="<%= @request.length %>">
+        <select name = "length", placeholder = "Request Length" class="form-control">
+          <option> Full Day </option>
+          <option> AM Half Day </option>
+          <option> PM Half Day </option>
+        </select>
       </div>
 
       <!-- Label and input for type -->
@@ -51,7 +55,11 @@
           Type
         </label>
 
-        <input type="text" id="request_type" name="request_type" placeholder="Type" class="form-control" value="<%= @request.request_type %>">
+        <!--<input type="text" id="request_type" name="request_type" placeholder="Type" class="form-control" value="<%= @request.request_type %>"> -->
+        <select name = "request_type", placeholder = "Vacation or Personal Day" class="form-control">
+          <option> Vacation Day </option>
+          <option> Personal Day </option>
+        </select>
       </div>
 
       <button class="btn btn-success">

@@ -3,4 +3,5 @@ class Department < ActiveRecord::Base
                               :uniqueness => true
   has_many(:users)
   has_many(:allotments)
+  
 end

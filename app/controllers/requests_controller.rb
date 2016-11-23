@@ -22,8 +22,8 @@ class RequestsController < ApplicationController
 
     @request.user_id = params[:user_id]
     @request.allotment_id = params[:allotment_id]
-    @request.length = params[:length]
-    @request.request_type = params[:request_type]
+    @request.length = params[:length].downcase
+    @request.request_type = params[:request_type].downcase
 
     save_status = @request.save
 
@@ -45,8 +45,8 @@ class RequestsController < ApplicationController
 
     @request.user_id = params[:user_id]
     @request.allotment_id = params[:allotment_id]
-    @request.length = params[:length]
-    @request.request_type = params[:request_type]
+    @request.length = params[:length].downcase
+    @request.request_type = params[:request_type].downcase
 
     save_status = @request.save
 
@@ -68,4 +68,18 @@ class RequestsController < ApplicationController
       redirect_to(:back, :notice => "Request deleted.")
     end
   end
+
+  def schedule
+    @allotments_step_1 = Allotment.where(:department_id => current_user.department_id)
+    @allotments_for_user = @allotments_step_1.where(:role_id => current_user.role_id)
+
+
+    @cohort = User.where(:department_id =>current_user.department_id, :role_id => current_user.role_id)
+    @cohort_requests_full_days = Request.where(:user_id => @cohort.ids, :length => "full day")
+    @cohort_requests_half_days = Request.where(:user_id => @cohort.ids, :length => ["am half day", "pm half day"])
+
+
+    render("requests/schedule_vacation.html.erb")
+  end
+
 end

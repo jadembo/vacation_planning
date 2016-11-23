@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-root "requests#index"
+root "requests#show"
   # Routes for the Allotment resource:
   # CREATE
   get "/allotments/new", :controller => "allotments", :action => "new"
@@ -56,6 +56,7 @@ root "requests#index"
   # CREATE
   get "/requests/new", :controller => "requests", :action => "new"
   post "/create_request", :controller => "requests", :action => "create"
+  get "/schedule_vacation", :controller => "requests", :action => "schedule"
 
   # READ
   get "/requests", :controller => "requests", :action => "index"
@@ -68,6 +69,7 @@ root "requests#index"
   # DELETE
   get "/delete_request/:id", :controller => "requests", :action => "destroy"
   #------------------------------
+
 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

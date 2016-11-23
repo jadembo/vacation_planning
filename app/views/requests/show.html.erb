@@ -6,8 +6,7 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
-        <th>User</th>
-        <th>Allotment</th>
+        <th>Date</th>
         <th>Length</th>
         <th>Type</th>
         <th>Actions</th>
@@ -15,10 +14,9 @@
 
       <% @requests.each do |request| %>
       <tr>
-        <td><%= request.user_id %></td>
-        <td><%= request.allotment_id %></td>
-        <td><%= request.length %></td>
-        <td><%= request.request_type %></td>
+        <td><%= request.allotment.date.strftime("%a %D") %></td>
+        <td><%= request.length.titlecase %></td>
+        <td><%= request.request_type.titlecase %></td>
         <td>
           <a href="/delete_request/<%= request.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
         </td>
