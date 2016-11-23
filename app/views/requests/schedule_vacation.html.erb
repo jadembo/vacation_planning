@@ -10,36 +10,53 @@
         <th>Days available</th>
         <th>Request Vacation Day</th>
         <th>Request Personal Day</th>
-        <th>Actions</th>
       </tr>
 
       <% @allotments_for_user.each do |allotment| %>
       <% days_available = allotment.days_available - @cohort_requests_full_days.where(:allotment_id => allotment.id).count - @cohort_requests_half_days.where(:allotment_id =>allotment.id).count * 0.5%>
       <% days_available_display = [days_available,0].max.to_f%>
+
+      <% if Request.where(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "vacation").count > 0 %>
+        <%day_already_taken = "vacation"%>
+      <% elsif Request.where(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "personal day").count > 0 %>
+        <%day_already_taken = "personal day"%>
+      <% else %>
+        <%day_already_taken = "not taken"%>
+      <%end%>
+
       <tr>
         <td><%= allotment.date.strftime("%a %D") %></td>
         <td><%= days_available_display %></td>
-          <%if days_available > 0%>
+
+        <%if day_already_taken == "vacation"%>
+          <td> Vacation Day Already Taken </td>
+          <td> </td>
+
+        <%elsif day_already_taken == "personal day"%>
+        <td> </td>
+        <td> Personal Day Already Taken</td>
+        <%elsif days_available > 0%>
+
           <td>
-              <a href ="/add_vacation_day" class = "btn btn-primary"> Schedule Vacation Day </a>
+              <a href ="/add_vacation_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-group "> Full Day </a>
+              <a href ="/add_vacation_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-group "> AM Half Day </a>
+              <a href ="/add_vacation_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-group "> PM Half Day </a>
           </td>
           <td>
-              <a href = "/add_personal_day" class = "btn btn-warning"> Schedule Personal Day </a>
+            <a href ="/add_personal_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary"> Full Day </a>
+            <a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary"> AM Half Day </a>
+            <a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary"> PM Half Day </a>
           </td>
           <%else%>
           <td>
             <div class="btn btn-danger"> Vacation Day Unavailable </div>
           </td>
           <td>
-            <a href = "/add_personal_day" class = "btn btn-warning"> Schedule Personal Day </a>
+            <a href ="/add_personal_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary"> Full Day </a>
+            <a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary"> AM Half Day </a>
+            <a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary"> PM Half Day </a>
           </td>
           <%end%>
-          <td>
-          <a href="/allotments/<%= allotment.id %>" class="btn btn-primary">Show</a>
-          <a href="/allotments/<%= allotment.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_allotment/<%= allotment.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-        </td>
-
       </tr>
       <% end %>
     </table>

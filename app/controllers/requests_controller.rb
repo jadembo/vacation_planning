@@ -34,6 +34,30 @@ class RequestsController < ApplicationController
     end
   end
 
+  def add_vacation_day
+    @request = Request.new
+
+    @request.user_id = current_user.id
+    @request.allotment_id = params[:allotment_id]
+    @request.length = params[:length].gsub("_"," ").downcase
+    @request.request_type = "vacation"
+    save_status = @request.save
+
+    redirect_to("/my_requests", :notice => "Request created successfully.")
+  end
+
+  def add_personal_day
+    @request = Request.new
+
+    @request.user_id = current_user.id
+    @request.allotment_id = params[:allotment_id]
+    @request.length = params[:length].gsub("_"," ").downcase
+    @request.request_type = "personal day"
+    save_status = @request.save
+
+    redirect_to("/my_requests", :notice => "Request created successfully.")
+  end
+
   def edit
     @request = Request.find(params[:id])
 

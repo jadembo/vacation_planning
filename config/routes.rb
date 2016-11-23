@@ -57,6 +57,8 @@ root "requests#show"
   get "/requests/new", :controller => "requests", :action => "new"
   post "/create_request", :controller => "requests", :action => "create"
   get "/schedule_vacation", :controller => "requests", :action => "schedule"
+  get "/add_personal_day", :controller => "requests", :action => "add_personal_day"
+  get "/add_vacation_day", :controller => "requests", :action => "add_vacation_day"
 
   # READ
   get "/requests", :controller => "requests", :action => "index"
