@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-get"/fix_requests", :controller => "requests", :action => "fix"
-
 root "requests#show"
   # Routes for the Allotment resource:
   # CREATE
