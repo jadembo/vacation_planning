@@ -4,6 +4,8 @@
 
 <div class="row">
   <div class="col-md-12">
+
+
     <table class="table table-striped table-hover">
       <tr>
         <th>Date</th>
@@ -13,63 +15,67 @@
       </tr>
 
       <% @allotments_for_user.each do |allotment| %>
+
+
       <% days_available = allotment.days_available - @cohort_requests_full_days.where(:allotment_id => allotment.id).count - @cohort_requests_half_days.where(:allotment_id =>allotment.id).count * 0.5%>
       <% days_available_display = [days_available,0].max.to_f%>
 
       <% if Request.where(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "vacation").count > 0 %>
-        <%day_already_taken = "vacation"%>
-        <%user_request = Request.find_by(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "vacation")%>
-        <%user_request_id = user_request.id%>
+      <%day_already_taken = "vacation"%>
+      <%user_request = Request.find_by(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "vacation")%>
+      <%user_request_id = user_request.id%>
       <% elsif Request.where(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "personal day").count > 0 %>
-        <%day_already_taken = "personal day"%>
-        <%user_request = Request.find_by(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "personal day")%>
-        <%user_request_id = user_request.id%>
+      <%day_already_taken = "personal day"%>
+      <%user_request = Request.find_by(:allotment_id => allotment.id, :user_id => current_user.id, :request_type => "personal day")%>
+      <%user_request_id = user_request.id%>
       <% else %>
-        <%day_already_taken = "not taken"%>
+      <%day_already_taken = "not taken"%>
       <%end%>
+
 
       <tr>
         <td><%= allotment.date.strftime("%a %D") %></td>
         <td><%= days_available_display %></td>
 
         <%if day_already_taken == "vacation"%>
-          <td colspan ="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> Give Back Vacation Day </a> </td>
-          <td colspan = "3"> </td>
+        <td colspan ="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> Give Back Vacation Day </a> </td>
+        <td colspan = "3"> </td>
 
         <%elsif day_already_taken == "personal day"%>
-          <td colspan ="3"> </td>
-          <td colspan="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> Give Back Personal Day </a></td>
+        <td colspan ="3"> </td>
+        <td colspan="3"> <a href = "/delete_request/<%=user_request_id%>" class="btn btn-warning btn-block"> Give Back Personal Day </a></td>
 
         <%elsif days_available >= 1.0%>
 
-          <td><a href ="/add_vacation_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block"> Full Day </a></td>
-          <td><a href ="/add_vacation_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block"> AM Half Day </a></td>
-          <td><a href ="/add_vacation_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block"> PM Half Day </a></td>
+        <td><a href ="/add_vacation_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block"> Full Day </a></td>
+        <td><a href ="/add_vacation_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block"> AM Half Day </a></td>
+        <td><a href ="/add_vacation_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block"> PM Half Day </a></td>
 
 
-          <td><a href ="/add_personal_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> Full Day </a> </td>
-          <td><a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> AM Half Day </a></td>
-          <td><a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> PM Half Day </a></td>
+        <td><a href ="/add_personal_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> Full Day </a> </td>
+        <td><a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> AM Half Day </a></td>
+        <td><a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> PM Half Day </a></td>
 
 
-          <%elsif days_available >= 0.5%>
+        <%elsif days_available >= 0.5%>
 
-            <td><div class="btn btn-danger btn-block"> Full Day Unavailable </div> </td>
-            <td><a href ="/add_vacation_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block "> AM Half Day </a></td>
-            <td><a href ="/add_vacation_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block "> PM Half Day </a></td>
+        <td><div class="btn btn-danger btn-block"> Full Day Unavailable </div> </td>
+        <td><a href ="/add_vacation_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block "> AM Half Day </a></td>
+        <td><a href ="/add_vacation_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-success btn-block "> PM Half Day </a></td>
 
-            <td><div class="btn btn-danger"> Full Day Unavailable </div></td>
-            <td><a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> AM Half Day </a></td>
-            <td><a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> PM Half Day </a></td>
+        <td><div class="btn btn-danger"> Full Day Unavailable </div></td>
+        <td><a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> AM Half Day </a></td>
+        <td><a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> PM Half Day </a></td>
 
-          <%else%>
-          <td colspan="3"><div class="btn btn-danger btn-block"> Vacation Day Unavailable </div></td>
+        <%else%>
+        <td colspan="3"><div class="btn btn-danger btn-block"> Vacation Day Unavailable </div></td>
 
-          <td><a href ="/add_personal_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> Full Day </a></td>
-          <td><a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> AM Half Day </a></td>
-          <td><a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> PM Half Day </a></td>
-          <%end%>
+        <td><a href ="/add_personal_day?length=Full_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> Full Day </a></td>
+        <td><a href ="/add_personal_day?length=AM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> AM Half Day </a></td>
+        <td><a href ="/add_personal_day?length=PM_Half_Day&allotment_id=<%=allotment.id%>" class = "btn btn-primary btn-block"> PM Half Day </a></td>
+        <%end%>
       </tr>
+
       <% end %>
     </table>
   </div>

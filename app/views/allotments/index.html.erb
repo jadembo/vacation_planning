@@ -18,7 +18,7 @@
 
       <% @allotments.each do |allotment| %>
       <tr>
-        <td><%= allotment.date %></td>
+        <td><%= allotment.date.strftime("%a %D") %></td>
         <td><%= allotment.days_available %></td>
         <td><%= allotment.role.role_name %></td>
         <td><%= allotment.department.department_name%></td>

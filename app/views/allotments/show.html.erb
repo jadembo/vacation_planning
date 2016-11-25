@@ -6,7 +6,7 @@
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
       <dt>Date</dt>
-      <dd><%= @allotment.date %></dd>
+      <dd><%= @allotment.date.strftime("%a %D")%></dd>
 
       <dt>Days available</dt>
       <dd><%= @allotment.days_available %></dd>

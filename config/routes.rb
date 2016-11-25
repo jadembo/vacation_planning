@@ -54,8 +54,6 @@ root "requests#show"
 
   # Routes for the Request resource:
   # CREATE
-  get "/requests/new", :controller => "requests", :action => "new"
-  post "/create_request", :controller => "requests", :action => "create"
   get "/schedule_vacation", :controller => "requests", :action => "schedule"
   get "/add_personal_day", :controller => "requests", :action => "add_personal_day"
   get "/add_vacation_day", :controller => "requests", :action => "add_vacation_day"
@@ -64,14 +62,12 @@ root "requests#show"
   get "/requests", :controller => "requests", :action => "index"
   get "/my_requests", :controller => "requests", :action => "show"
 
-  # UPDATE
-  get "/requests/:id/edit", :controller => "requests", :action => "edit"
-  post "/update_request/:id", :controller => "requests", :action => "update"
-
   # DELETE
   get "/delete_request/:id", :controller => "requests", :action => "destroy"
-  #------------------------------
 
+
+
+  #------------------------------
 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
