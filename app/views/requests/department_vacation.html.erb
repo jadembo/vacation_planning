@@ -1,0 +1,45 @@
+<div class = "page-header">
+  <h4> <%=current_user.department.department_name.titlecase%> Vacation </h4>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Date</th>
+        <th>Role </th>
+        <th>Full Day </th>
+        <th>AM Half Day </th>
+        <th>PM Half Day </th>
+      </tr>
+
+  <% @allotments.each do |allotment| %>
+
+      <% days_scheduled = @department_full_day_vacations.where(:allotment_id => allotment.id).count + @department_half_day_vacations.where(:allotment_id => allotment.id).count*0.5%>
+
+      <% employees_off_full_day = @department_full_day_vacations.where(:allotment_id => allotment.id) %>
+      <% employees_off_am_half_day = @department_half_day_vacations.where(:allotment_id => allotment.id, :length => "am half day") %>
+      <% employees_off_pm_half_day = @department_half_day_vacations.where(:allotment_id => allotment.id, :length => "pm half day") %>
+
+      <tr>
+        <td> <%=allotment.date.strftime("%a %D")%></td>
+        <td> <%=allotment.role.role_name%> </td>
+        <td> <% employees_off_full_day.each do |employee| %>
+             <li><%=employee.user.first_name.capitalize %> <%=employee.user.last_name.capitalize %></li>
+             <%end%>
+           </td>
+       <td> <% employees_off_am_half_day.each do |employee| %>
+            <li><%=employee.user.first_name.capitalize %> <%=employee.user.last_name.capitalize %></li>
+            <%end%>
+          </td>
+        <td> <% employees_off_pm_half_day.each do |employee| %>
+             <li><%=employee.user.first_name.capitalize %> <%=employee.user.last_name.capitalize %></li>
+             <%end%>
+           </td>
+
+
+      </tr>
+
+    <%end%>

@@ -17,7 +17,7 @@ class RequestsController < ApplicationController
   #Show day's available for the user's role and department
   def schedule
     @allotments_step_1 = Allotment.where(:department_id => current_user.department_id)
-    @allotments_for_user = @allotments_step_1.where(:role_id => current_user.role_id)
+    @allotments_for_user = @allotments_step_1.where(:role_id => current_user.role_id).order('date ASC')
 
 
     @cohort = User.where(:department_id =>current_user.department_id, :role_id => current_user.role_id)
@@ -56,6 +56,17 @@ class RequestsController < ApplicationController
       redirect_to("/schedule_vacation", :notice => "Request updated successfully.")
     end
   end
+
+  def department_vacation
+    @department_employees = User.where(:department_id =>current_user.department_id)
+    @department_full_day_vacations = Request.where(:user_id => @department_employees.ids, :length => "full day")
+    @department_half_day_vacations = Request.where(:user_id => @department_employees.ids, :length => ["am half day", "pm half day"])
+
+    @allotments = Allotment.where(:department_id =>current_user.department_id).order("date ASC")
+    render ("requests/department_vacation.html.erb")
+  end
+
+
 
   def destroy
     @request = Request.find(params[:id])

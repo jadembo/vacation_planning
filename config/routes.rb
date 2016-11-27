@@ -8,7 +8,8 @@ root "requests#show"
 
   # READ
   get "/allotments", :controller => "allotments", :action => "index"
-  get "/allotments/:id", :controller => "allotments", :action => "show"
+  get "/my_allotments", :controller => "allotments", :action => "show"
+
 
   # UPDATE
   get "/allotments/:id/edit", :controller => "allotments", :action => "edit"
@@ -61,7 +62,7 @@ root "requests#show"
   # READ
   get "/requests", :controller => "requests", :action => "index"
   get "/my_requests", :controller => "requests", :action => "show"
-
+  get "/my_departments_requests", :controller => "requests", :action=>"department_vacation"
   # DELETE
   get "/delete_request/:id", :controller => "requests", :action => "destroy"
 

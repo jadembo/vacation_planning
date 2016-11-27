@@ -1,12 +1,12 @@
 class AllotmentsController < ApplicationController
   def index
-    @allotments = Allotment.all
+    @allotments = Allotment.all.order('date ASC')
 
     render("allotments/index.html.erb")
   end
 
   def show
-    @allotment = Allotment.find(params[:id])
+    @allotments = Allotment.where(:department_id => current_user.department_id).order('date ASC')
 
     render("allotments/show.html.erb")
   end
@@ -28,7 +28,7 @@ class AllotmentsController < ApplicationController
     save_status = @allotment.save
 
     if save_status == true
-      redirect_to("/allotments/#{@allotment.id}", :notice => "Allotment created successfully.")
+      redirect_to("/allotments/", :notice => "Allotment created successfully.")
     else
       render("allotments/new.html.erb")
     end
@@ -51,7 +51,7 @@ class AllotmentsController < ApplicationController
     save_status = @allotment.save
 
     if save_status == true
-      redirect_to("/allotments/#{@allotment.id}", :notice => "Allotment updated successfully.")
+      redirect_to("/allotments/", :notice => "Allotment updated successfully.")
     else
       render("allotments/edit.html.erb")
     end
