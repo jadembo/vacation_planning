@@ -1,3 +1,7 @@
+<% if current_user.role.role_name.downcase != "supervisor"%>
+<h1>Access Denied</h1>
+<%else%>
+
 <div class="page-header">
   <h1>
     Allotments
@@ -31,3 +35,5 @@
     </table>
   </div>
 </div>
+
+<%end%>
