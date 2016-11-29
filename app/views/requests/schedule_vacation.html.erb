@@ -14,7 +14,7 @@
         <th colspan ="3" class="text-center">Request Personal Day</th>
       </tr>
 
-      <% @allotments_for_user.each do |allotment| %>
+      <% @allotments.each do |allotment| %>
 
 
       <% days_available = allotment.days_available - @cohort_requests_full_days.where(:allotment_id => allotment.id).count - @cohort_requests_half_days.where(:allotment_id =>allotment.id).count * 0.5%>

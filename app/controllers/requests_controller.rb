@@ -9,15 +9,13 @@ class RequestsController < ApplicationController
 
   #Show USER'S requests
   def show
-    @requests = Request.where(:user_id => current_user.id)
-
+    @requests = current_user.requests.order('allotment_id ASC')
     render("requests/show.html.erb")
   end
 
   #Show day's available for the user's role and department
   def schedule
-    @allotments_step_1 = Allotment.where(:department_id => current_user.department_id)
-    @allotments_for_user = @allotments_step_1.where(:role_id => current_user.role_id).order('date ASC')
+    @allotments = Allotment.where(:role_id =>current_user.role_id, :department_id => current_user.department_id).order('date ASC')
 
 
     @cohort = User.where(:department_id =>current_user.department_id, :role_id => current_user.role_id)
@@ -58,12 +56,27 @@ class RequestsController < ApplicationController
   end
 
   def department_vacation
-    @department_employees = User.where(:department_id =>current_user.department_id)
+    @department_employees = current_user.department.users
     @department_full_day_vacations = Request.where(:user_id => @department_employees.ids, :length => "full day")
     @department_half_day_vacations = Request.where(:user_id => @department_employees.ids, :length => ["am half day", "pm half day"])
 
-    @allotments = Allotment.where(:department_id =>current_user.department_id).order("date ASC")
+    if params[:month] == nil
+      @month_filter = 1
+    else
+    @month_filter = params[:month].to_i
+    end
+
+    if params[:role_id] == nil
+      @role_filter = 1
+    else
+      @role_filter = params[:role_id].to_i
+    end
+
+    @allotments = current_user.department.allotments
+    
     render ("requests/department_vacation.html.erb")
+
+
   end
 
 
