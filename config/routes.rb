@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 root "requests#show"
   # Routes for the Allotment resource:
   # CREATE
@@ -63,6 +65,7 @@ root "requests#show"
   get "/requests", :controller => "requests", :action => "index"
   get "/my_requests", :controller => "requests", :action => "show"
   get "/my_departments_requests", :controller => "requests", :action=>"department_vacation"
+
   # DELETE
   get "/delete_request/:id", :controller => "requests", :action => "destroy"
 
