@@ -1,8 +1,3 @@
-<% if current_user.role.role_name.downcase != "supervisor"%>
-<h1>Access Denied</h1>
-<%else%>
-
-
 <!-- Validation failure messages -->
 <% if @department.errors.any? %>
   <% @department.errors.full_messages.each do |message| %>
@@ -40,5 +35,3 @@
     </form>
   </div>
 </div>
-
-<%end%>
